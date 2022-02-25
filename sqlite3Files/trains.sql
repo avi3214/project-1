@@ -70,3 +70,50 @@ INSERT INTO status VALUES('20/02/2022',' Flying Scottsman',8,5,2,5);
 INSERT INTO status VALUES('21/02/2022',' Guwahati Express',7,6,3,4);
 INSERT INTO status VALUES('21/02/2022',' Golden Chariot',6,3,4,7);
 COMMIT;
+
+
+
+-- QUESTION 7 Enter the passenger’s last name and first name and retrieve all trains they are booked on. 
+  -- Name default has been set to James Butt in the WHERE clause
+SELECT P.[first_name], P.[last_name], B.[train_number], T.[train_name]
+FROM PASSENGER1 P, BOOKED B, TRAIN T
+WHERE P.[first_name] = 'James' AND P.[last_name] = 'Butt' AND P.SSN = B.SSN AND B.status = 'Booked' AND B.[train_number] = T.[train_number];
+  -- OUTPUT 
+first_name|last_name|train_number|train_name
+James|Butt|3|Golden Arrow
+
+-- Question 8 Get the train information (Train Number, Train Name, Source and Destination) and passenger information (Name, Address, Category, ticket status) of passengers who are between the ages of 50 to 60. 
+SELECT P.[first_name], P.[last_name], P.[bdate], P.[address], B.[ticket_type], B.[status], T.[train_number], T.[train_name], T.[source_station], T.[destination_station]  
+FROM PASSENGER1 P, BOOKED B, TRAIN T
+WHERE P.SSN = B.SSN AND B.[train_number] = T.[train_number] AND (CAST(substr(datetime('now'),1,4) AS INTEGER) - CAST(('19' || substr(P.[bdate],-2,2)) AS INTEGER)) BETWEEN 50 AND 60;
+  -- OUTPUT
+first_name|last_name|bdate|address|ticket_type|status|train_number|train_name|source_station|destination_station
+James|Butt|10/10/68|6649 N Blue Gum St|Premium|Booked|3|Golden Arrow|Victoria|Dover
+
+-- Question 9 List all the train name along with count of passengers it is carrying. 
+SELECT S.[train_name], S.[premium_taken] + S.[gen_taken]
+FROM STATUS S;
+  -- OUTPUT
+train_name|S.[premium_taken] + S.[gen_taken]
+Orient Express|0
+Flying Scottsman|7
+Guwahati Express|7
+Golden Chariot|11
+
+-- Question 10 List all passengers who are travelling on Saturday and Sunday and are using premium service.
+  -- Names repeated twice means multiple tickets for the same customer.
+SELECT P.[first_name], P.[last_name]
+FROM PASSENGER1 P, TRAIN T, BOOKED B
+WHERE B.ticket_type = 'Premium' AND B.[train_number] = T.[train_number] AND B.SSN = P.SSN AND (INSTR(T.[available_on], 'Saturday') > 0 OR INSTR(T.[available_on], 'Sunday') > 0);
+  -- OUTPUT
+first_name|last_name
+Art|Venere
+Art|Venere
+Fletcher|Flosi
+Gladys|Rim
+Yuki|Whobrey
+Fletcher|Flosi
+Sage|Wieser
+Kris|Marrier
+Minna|Amigon
+Abel|Maclead
