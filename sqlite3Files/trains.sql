@@ -94,22 +94,22 @@ COMMIT;
  
 -- QUESTION 2  Enter a train name and retrieve all the passengers with confirmed status traveling in that train. 
 -- Chose Golden Chariot as example 
-SELECT T.[train_name], B.[SSN], B.[train_number], T.[train_number], B.[status]
+SELECT T.[train_name], B.[SSN], B.[train_number], T.[train_number], B.[status], P.[first_name], P.[last_name]
 FROM TRAIN T, PASSENGER1 P, BOOKED B
 WHERE B.SSN = P.SSN AND B.[train_number] = T.[train_number] AND B.status = 'Booked' AND T.[train_name] = 'Golden Chariot';
     -- OUTPUT 
-Golden Chariot|285200976|4|4|Booked
-Golden Chariot|286411536|4|4|Booked
-Golden Chariot|294860856|4|4|Booked
-Golden Chariot|317434088|4|4|Booked
-Golden Chariot|310908858|4|4|Booked
-Golden Chariot|322273872|4|4|Booked
-Golden Chariot|256558303|4|4|Booked
-Golden Chariot|302548590|4|4|Booked
-Golden Chariot|284965676|4|4|Booked
-Golden Chariot|277292710|4|4|Booked
-Golden Chariot|331160133|4|4|Booked
-Golden Chariot|331293204|4|4|Booked
+Golden Chariot|285200976|4|4|Booked|Art|Venere
+Golden Chariot|286411536|4|4|Booked|Gladys|Rim
+Golden Chariot|294860856|4|4|Booked|Yuki|Whobrey
+Golden Chariot|317434088|4|4|Booked|Fletcher|Flosi
+Golden Chariot|310908858|4|4|Booked|Sage|Wieser
+Golden Chariot|322273872|4|4|Booked|Kris|Marrier
+Golden Chariot|256558303|4|4|Booked|Minna|Amigon
+Golden Chariot|302548590|4|4|Booked|Abel|Maclead
+Golden Chariot|284965676|4|4|Booked|Kiley|Caldarera
+Golden Chariot|277292710|4|4|Booked|Graciela|Ruta
+Golden Chariot|331160133|4|4|Booked|Cammy|Albares
+Golden Chariot|331293204|4|4|Booked|Mattie|Poquette
 
 -- QUESTION 3 List all the trains where the waiting list is full along with passengers on the waiting list in descending order
 SELECT P.[first_name], P.[last_name], P.[SSN], T.[train_number], T.[train_number], B.[SSN], B.[train_number], B.[status]
